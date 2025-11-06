@@ -84,6 +84,9 @@ def add_book(book: Book) -> int:
         print(f'Dogodila se greska {ex}.')
 
 
+
+
+
 def main():
     # Kreiraj autora
     first_name = input('Upiste ime autora: ')
