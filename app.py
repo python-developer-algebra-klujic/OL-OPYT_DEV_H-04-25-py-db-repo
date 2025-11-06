@@ -34,14 +34,15 @@ class Author:
         self.books.append(book)
 
 
-sql_create_tables = '''
-CREATE TABLE IF NOT EXITS author
+sql_create_table_author = '''
+CREATE TABLE IF NOT EXISTS author
 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL
 );
-
+'''
+sql_create_table_book = '''
 CREATE TABLE IF NOT EXISTS book
 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -53,14 +54,16 @@ CREATE TABLE IF NOT EXISTS book
 
     FOREIGN KEY (author_id)
         REFERENCES author (id)
-)
+);
 '''
 
 
-
 try:
+    # with automatski zatvara konekciju (conn.close()) i radi commit (conn.commit())
     with sqlite3.connect(DB_PATH) as conn:
-        pass
+        cursor = conn.cursor()
+        cursor.execute(sql_create_table_author)
+        cursor.execute(sql_create_table_book)
 
 except Exception as ex:
     print(f'Dogodila se greska {ex}.')
