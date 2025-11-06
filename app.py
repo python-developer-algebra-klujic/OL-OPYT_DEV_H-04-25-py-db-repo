@@ -6,11 +6,11 @@ DB_PATH = './data_store/baza.db'
 
 # Knjiga ima jednog autora
 class Book:
-    def __init__(self, title: str, author: Author, description: str, price: float, isbn: str = ''):
+    def __init__(self, title: str, author: Author, price: float, description: str = '', isbn: str = ''):
         self.title = title
+        self.price = price
         self.author = author
         self.description = description
-        self.price = price
         self.isbn = isbn
 
     def __str__(self):
@@ -35,8 +35,27 @@ class Author:
 
 
 sql_create_tables = '''
+CREATE TABLE IF NOT EXITS author
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL
+);
 
+CREATE TABLE IF NOT EXISTS book
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT NULL,
+    isbn TEXT NULL,
+    price REAL NOT NULL,
+    author_id INTEGER NOT NULL,
+
+    FOREIGN KEY (author_id)
+        REFERENCES author (id)
+)
 '''
+
 
 
 try:
