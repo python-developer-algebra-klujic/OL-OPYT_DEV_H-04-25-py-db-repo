@@ -1,4 +1,4 @@
-from models.books import Book
+from __future__ import annotations
 
 
 class Author:
@@ -14,5 +14,5 @@ class Author:
     def __str__(self):
         return self.full_name
 
-    def add_book(self, book: Book):
+    def add_book(self, book: 'Book'):
         self.books.append(book)

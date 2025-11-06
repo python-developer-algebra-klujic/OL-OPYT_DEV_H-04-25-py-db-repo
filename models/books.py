@@ -1,8 +1,8 @@
-from models.authors import Author
+from __future__ import annotations
 
 
 class Book:
-    def __init__(self, title: str, author: Author, price: float, description: str = '', isbn: str = ''):
+    def __init__(self, title: str, author: 'Author', price: float, description: str = '', isbn: str = ''):
         self.title = title
         self.price = price
         self.author = author
