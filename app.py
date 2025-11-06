@@ -1,5 +1,8 @@
 import sqlite3
 
+from models.authors import Author
+from models.books import Book
+
 
 DB_PATH = './data_store/baza.db'
 
@@ -25,6 +28,10 @@ CREATE TABLE IF NOT EXISTS book
         REFERENCES author (id)
 );
 '''
+sql_create_author = '''
+INSERT INTO author (first_name, last_name)
+VALUES (?, ?)
+'''
 
 def db_init():
     try:
@@ -37,6 +44,28 @@ def db_init():
     except Exception as ex:
         print(f'Dogodila se greska {ex}.')
 
+
+def add_author(author: Author):
+    if isinstance(author, Author):
+        params = (author.first_name, author.last_name)
+    else:
+        return
+
+    try:
+        with sqlite3.connect(DB_PATH) as conn:
+            cursor = conn.cursor()
+            cursor.execute(sql_create_author, params)
+
+    except Exception as ex:
+        print(f'Dogodila se greska {ex}.')
+
+
+def add_book(book: Book):
+    pass
+
+
+def main():
+    pass
 
 
 if __name__ == '__main__':
